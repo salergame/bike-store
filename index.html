@@ -24,9 +24,9 @@
                     <img src="f (1).png" alt="T">
                 </div>
                 <ul class="nav-links">
-                    <li class="dropdown">
+                    <li class="dropdown" style="position: relative; z-index: 2147483647 !important;">
                         <a href="#"><i class="fas fa-chevron-down dropdown-arrow"></i>Велосипеды</a>
-                        <div class="dropdown-content">
+                        <div class="dropdown-content" style="z-index: 2147483647 !important; position: absolute !important;">
                             <a href="#">Детские велосипеды</a>
                             <a href="#">Подростковые велосипеды</a>
                             <a href="#">Горные велосипеды</a>
@@ -112,11 +112,11 @@
                     </div>
                 </div>
                 
-                <div class="filter-btn">
+                <div class="filter-box cassette-filter">
                     <button class="cassette-btn">Кассета</button>
                 </div>
                 
-                <div class="filter-btn filter-reset">
+                <div class="filter-box reset-filter">
                     <button class="reset-btn">Сбросить всё</button>
                 </div>
             </div>
@@ -417,79 +417,113 @@
         </div>
     </div>
     
-    <!-- Скрипт для анимаций при скролле и интерактивности -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Функция для анимации элементов при скролле
-            function animateOnScroll() {
-                const productCards = document.querySelectorAll('.product-card:not(.fade-in)');
-                const filterBoxes = document.querySelectorAll('.filter-box:not(.fade-in)');
+            const allFilterBoxes = document.querySelectorAll('.filter-box:not(.cassette-filter):not(.reset-filter)');
+            
+            allFilterBoxes.forEach(filterBox => {
+                const filterOptions = filterBox.querySelector('.filter-options');
                 
-                // Порог видимости - элемент появляется, когда 20% его высоты видно на экране
-                const threshold = 0.2;
+                const options = filterBox.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const selectedValue = filterBox.querySelector('.selected-value');
+                        if (selectedValue) {
+                            selectedValue.textContent = this.textContent;
+                            
+                            filterOptions.style.display = 'none';
+                            filterOptions.style.opacity = '0';
+                            filterOptions.style.transform = 'translateY(20px) rotateX(-10deg)';
+                            filterOptions.style.pointerEvents = 'none';
+                        }
+                    });
+                });
                 
-                // Анимируем карточки товаров
-                productCards.forEach(card => {
-                    const cardTop = card.getBoundingClientRect().top;
-                    if (cardTop < window.innerHeight * (1 - threshold)) {
-                        setTimeout(() => {
-                            card.classList.add('fade-in');
-                        }, 100 * Math.random()); // Небольшая случайная задержка для эффекта каскада
+                filterBox.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('option')) {
+                        if (filterOptions.style.display === 'block') {
+                            filterOptions.style.display = 'none';
+                            filterOptions.style.opacity = '0';
+                            filterOptions.style.transform = 'translateY(20px) rotateX(-10deg)';
+                            filterOptions.style.pointerEvents = 'none';
+                        } else {
+                            filterOptions.style.display = 'block';
+                            filterOptions.style.opacity = '1';
+                            filterOptions.style.transform = 'translateY(0) rotateX(0)';
+                            filterOptions.style.pointerEvents = 'all';
+                        }
                     }
                 });
                 
-                // Анимируем фильтры
-                filterBoxes.forEach((box, index) => {
-                    const boxTop = box.getBoundingClientRect().top;
-                    if (boxTop < window.innerHeight * (1 - threshold)) {
-                        setTimeout(() => {
-                            box.classList.add('fade-in');
-                        }, 50 * index); // Постепенное появление по очереди
+                filterBox.addEventListener('mouseleave', function(e) {
+                    if (!filterOptions.contains(e.relatedTarget)) {
+                        filterOptions.style.display = 'none';
+                        filterOptions.style.opacity = '0';
+                        filterOptions.style.transform = 'translateY(20px) rotateX(-10deg)';
+                        filterOptions.style.pointerEvents = 'none';
+                    }
+                });
+                
+                filterOptions.addEventListener('mouseleave', function(e) {
+                    if (!filterBox.contains(e.relatedTarget)) {
+                        filterOptions.style.display = 'none';
+                        filterOptions.style.opacity = '0';
+                        filterOptions.style.transform = 'translateY(20px) rotateX(-10deg)';
+                        filterOptions.style.pointerEvents = 'none';
+                    }
+                });
+            });
+            
+            const resetBtn = document.querySelector('.reset-btn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    const allSelectedValues = document.querySelectorAll('.selected-value');
+                    allSelectedValues.forEach(value => {
+                        value.textContent = 'Все';
+                    });
+                    
+                    const cassetteBtn = document.querySelector('.cassette-btn');
+                    if (cassetteBtn && cassetteBtn.classList.contains('active')) {
+                        cassetteBtn.classList.remove('active');
                     }
                 });
             }
             
-            // Слушаем событие скролла для анимации
-            window.addEventListener('scroll', animateOnScroll);
-            
-            // Запускаем анимацию сразу для видимых элементов
-            animateOnScroll();
-            
-            // Обработка фильтров
-            document.querySelectorAll('.filter-box').forEach(filterBox => {
-                const selectedValue = filterBox.querySelector('.selected-value');
-                const options = filterBox.querySelector('.filter-options');
-
-                filterBox.addEventListener('click', (e) => {
-                    const option = e.target.closest('.option');
-                    if (option) {
-                        selectedValue.textContent = option.textContent;
-                    }
-                });
-            });
-
-            // Кнопка-галочка Кассета
             const cassetteBtn = document.querySelector('.cassette-btn');
             if (cassetteBtn) {
                 cassetteBtn.addEventListener('click', function() {
                     this.classList.toggle('active');
                 });
             }
+            
 
-            // Кнопка сброса фильтров
-            const resetBtn = document.querySelector('.reset-btn');
-            if (resetBtn) {
-                resetBtn.addEventListener('click', () => {
-                    document.querySelectorAll('.selected-value').forEach(selected => {
-                        selected.textContent = 'Все';
-                    });
-                    if (cassetteBtn) {
-                        cassetteBtn.classList.remove('active');
+            function animateOnScroll() {
+                const productCards = document.querySelectorAll('.product-card:not(.fade-in)');
+                const filterBoxes = document.querySelectorAll('.filter-box:not(.fade-in)');
+                
+                const threshold = 0.2;
+                
+                productCards.forEach(card => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    if (cardTop < window.innerHeight * (1 - threshold)) {
+                        setTimeout(() => {
+                            card.classList.add('fade-in');
+                        }, 100 * Math.random()); 
+                    }
+                });
+                
+                filterBoxes.forEach((box, index) => {
+                    const boxTop = box.getBoundingClientRect().top;
+                    if (boxTop < window.innerHeight * (1 - threshold)) {
+                        setTimeout(() => {
+                            box.classList.add('fade-in');
+                        }, 50 * index);
                     }
                 });
             }
+                window.addEventListener('scroll', animateOnScroll);
+                animateOnScroll();
             
-            // Анимация для мессенджеров
             const chatIcon = document.querySelector('.chat-icon');
             const messengerButtons = document.querySelector('.messenger-buttons');
             
@@ -509,23 +543,19 @@
                 });
             }
             
-            // Добавляем параллакс эффект для карточек товаров
             const productCards = document.querySelectorAll('.product-card');
             
             productCards.forEach(card => {
                 card.addEventListener('mousemove', function(e) {
                     const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left; // положение курсора по X внутри карточки
-                    const y = e.clientY - rect.top;  // положение курсора по Y внутри карточки
+                    const x = e.clientX - rect.left; 
+                    const y = e.clientY - rect.top;  
                     
-                    // Вычисляем смещение от центра (в процентах)
-                    const xPercent = ((x / rect.width) - 0.5) * 2;  // от -1 до 1
-                    const yPercent = ((y / rect.height) - 0.5) * 2; // от -1 до 1
+                    const xPercent = ((x / rect.width) - 0.5) * 2;  
+                    const yPercent = ((y / rect.height) - 0.5) * 2; 
                     
-                    // Применяем небольшой 3D-эффект наклона
                     this.style.transform = `perspective(1000px) rotateY(${xPercent * 3}deg) rotateX(${-yPercent * 3}deg) translateY(-10px) scale(1.03)`;
                     
-                    // Также активируем дополнительные эффекты при наведении
                     const buttons = this.querySelector('.product-buttons');
                     const img = this.querySelector('img');
                     
@@ -540,10 +570,8 @@
                 });
                 
                 card.addEventListener('mouseleave', function() {
-                    // Возвращаем обратно в исходное положение
                     this.style.transform = '';
                     
-                    // Возвращаем кнопки и изображение в исходное состояние
                     const buttons = this.querySelector('.product-buttons');
                     const img = this.querySelector('img');
                     
@@ -556,9 +584,32 @@
                         img.style.transform = '';
                     }
                 });
+                
+                card.addEventListener('mouseenter', () => {
+                    const productOptions = card.querySelector('.product-options');
+                    if (productOptions) {
+                        productOptions.style.display = 'block';
+                    }
+                    
+                    const availability = card.querySelector('.availability');
+                    if (availability) {
+                        availability.style.display = 'flex';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    const productOptions = card.querySelector('.product-options');
+                    if (productOptions) {
+                        productOptions.style.display = 'none';
+                    }
+                    
+                    const availability = card.querySelector('.availability');
+                    if (availability) {
+                        availability.style.display = 'none';
+                    }
+                });
             });
             
-            // Открытие/закрытие модального окна корзины
             const cartModal = document.getElementById('cartModal');
             const cartButton = document.getElementById('cartButton');
             const closeModal = document.querySelector('.close-modal');
@@ -574,7 +625,6 @@
                     document.body.style.overflow = 'auto';
                 });
                 
-                // Закрытие при клике вне модального окна
                 window.addEventListener('click', (e) => {
                     if (e.target === cartModal) {
                         cartModal.style.display = 'none';
@@ -582,8 +632,7 @@
                     }
                 });
             }
-
-            // Обработка количества товаров
+            
             const quantityBtns = document.querySelectorAll('.quantity-btn');
             quantityBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -600,7 +649,6 @@
                 });
             });
 
-            // Обработка выбора размера
             document.querySelectorAll('.size-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const parent = btn.closest('.size-buttons');
@@ -609,7 +657,6 @@
                 });
             });
 
-            // Обработка выбора цвета
             document.querySelectorAll('.color-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const parent = btn.closest('.color-buttons');

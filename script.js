@@ -1,4 +1,4 @@
-// Плавная прокрутка для навигационных ссылок
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -8,7 +8,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Анимация появления карточек при прокрутке
+
 const cards = document.querySelectorAll('.card');
 const observerOptions = {
     threshold: 0.1
@@ -30,7 +30,7 @@ cards.forEach(card => {
     observer.observe(card);
 });
 
-// Анимация кнопок при наведении
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('mouseover', () => {
@@ -41,7 +41,7 @@ buttons.forEach(button => {
     });
 });
 
-// Фиксированная навигация при прокрутке
+
 const header = document.querySelector('header');
 let lastScroll = 0;
 
