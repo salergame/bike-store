@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Street Bikes - Магазин велосипедов</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="main-nav">
+            <div class="container">
+                <div class="site-title">
+                    <h1>STREET BIKES</h1>
+                </div>
+                <div class="nav-right">
+                    <div class="burger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="#catalog">Каталог</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                    <button class="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Street Bikes</h1>
+                <p>Ваш надежный партнер в мире велосипедов</p>
+                <a href="#catalog" class="cta-button">Смотреть каталог</a>
+            </div>
+        </section>
+
+        <section id="catalog" class="catalog">
+            <div class="container">
+                <h2>Каталог велосипедов</h2>
+                
+                <!-- Добавляем поиск и фильтры -->
+                <div class="catalog-filters">
+                    <div class="search-box">
+                        <input type="text" id="searchBikes" placeholder="Поиск велосипедов...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="filter-box">
+                        <select id="priceFilter">
+                            <option value="all">Цена</option>
+                            <option value="low">До 40 000 ₽</option>
+                            <option value="medium">40 000 ₽ - 60 000 ₽</option>
+                            <option value="high">Более 60 000 ₽</option>
+                        </select>
+                        <select id="typeFilter">
+                            <option value="all">Тип велосипеда</option>
+                            <option value="mountain">Горный</option>
+                            <option value="city">Городской</option>
+                            <option value="sport">Спортивный</option>
+                            <option value="electric">Электровелосипед</option>
+                        </select>
+                        <!-- Добавляем кнопку применить -->
+                        <button id="applyFilters" class="apply-button">
+                            <i class="fas fa-filter"></i> Применить
+                        </button>
+                    </div>
+                </div>
+
+                <div class="catalog-grid">
+                    <!-- Карточки товаров будут добавлены через JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>О нас</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Мы - команда профессионалов, увлеченных велосипедами. Наша миссия - сделать качественные велосипеды доступными для каждого.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="О нас">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="contacts">
+            <div class="container">
+                <h2>Контакты</h2>
+                <div class="contacts-content">
+                    <div class="contact-info">
+                        <h3>Наши контакты</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ул. Велосипедная, 1</p>
+                        <p><i class="fas fa-phone"></i> +7 (900) 123-45-67</p>
+                        <p><i class="fas fa-envelope"></i> info@streetbikes.ru</p>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <input type="text" placeholder="Ваше имя" required>
+                            <input type="email" placeholder="Email" required>
+                            <textarea placeholder="Сообщение" required></textarea>
+                            <button type="submit" class="submit-button">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Street Bikes</h3>
+                    <p>Ваш надежный партнер в мире велосипедов</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="#catalog">Каталог</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Street Bikes. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="floating-chat">
+        <button class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-buttons">
+            <a href="#" class="chat-button vk">
+                <i class="fab fa-vk"></i>
+            </a>
+            <a href="#" class="chat-button telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="chat-button instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
