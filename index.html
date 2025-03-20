@@ -3,160 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Street Bikes - Магазин велосипедов</title>
+    <title>TIMETRY - Велосипеды</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header class="header">
+    <header>
+        <div class="top-logo">
+            <img src="f.png" alt="TIMETRY">
+        </div>
+        
+        <div class="cart-icon" id="cartButton">
+            <span class="cart-count">1</span>
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        
         <nav class="main-nav">
-            <div class="container">
-                <div class="site-title">
-                    <h1>STREET BIKES</h1>
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="f (1).png" alt="T">
                 </div>
-                <div class="nav-right">
-                    <div class="burger-menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <ul class="nav-links">
-                        <li><a href="#catalog">Каталог</a></li>
-                        <li><a href="#about">О нас</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
-                    </ul>
-                    <button class="cart-button">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </button>
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-chevron-down dropdown-arrow"></i>Велосипеды</a>
+                        <div class="dropdown-content">
+                            <a href="#">Детские велосипеды</a>
+                            <a href="#">Подростковые велосипеды</a>
+                            <a href="#">Горные велосипеды</a>
+                            <a href="#">Женские велосипеды</a>
+                            <a href="#">Гравийные велосипеды</a>
+                            <a href="#">Трейловые велосипеды</a>
+                            <a href="#">Фэтбайки</a>
+                            <a href="#">Полуфэтбайки</a>
+                            <a href="#">Городские велосипеды</a>
+                            <a href="#">Дорожные велосипеды</a>
+                            <a href="#">Двухподвесные велосипеды</a>
+                            <a href="#">Складные велосипеды</a>
+                            <a href="#">Электровелосипеды</a>
+                            <a href="#">Шоссейные велосипеды</a>
+                            <a href="#">BMX и др.</a>
+                        </div>
+                    </li>
+                    <li><a href="#">Доставка и оплата</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <div class="phone">
+                    <a href="tel:+79502720440">+7 (950) 272-04-40</a>
                 </div>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Street Bikes</h1>
-                <p>Ваш надежный партнер в мире велосипедов</p>
-                <a href="#catalog" class="cta-button">Смотреть каталог</a>
-            </div>
-        </section>
-
-        <section id="catalog" class="catalog">
-            <div class="container">
-                <h2>Каталог велосипедов</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Поиск..." class="search-input">
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <div class="filter-box">
+                    <span class="filter-box-label">Тип велосипеда: <span class="selected-value">Все</span> <i class="fas fa-chevron-down"></i></span>
+                    <div class="filter-options">
+                        <div class="option">Все</div>
+                        <div class="option">Горный</div>
+                        <div class="option">Шоссейный</div>
+                        <div class="option">Городской</div>
+                    </div>
+                </div>
                 
-                <!-- Добавляем поиск и фильтры -->
-                <div class="catalog-filters">
-                    <div class="search-box">
-                        <input type="text" id="searchBikes" placeholder="Поиск велосипедов...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="filter-box">
-                        <select id="priceFilter">
-                            <option value="all">Цена</option>
-                            <option value="low">До 40 000 ₽</option>
-                            <option value="medium">40 000 ₽ - 60 000 ₽</option>
-                            <option value="high">Более 60 000 ₽</option>
-                        </select>
-                        <select id="typeFilter">
-                            <option value="all">Тип велосипеда</option>
-                            <option value="mountain">Горный</option>
-                            <option value="city">Городской</option>
-                            <option value="sport">Спортивный</option>
-                            <option value="electric">Электровелосипед</option>
-                        </select>
-                        <!-- Добавляем кнопку применить -->
-                        <button id="applyFilters" class="apply-button">
-                            <i class="fas fa-filter"></i> Применить
-                        </button>
+                <div class="filter-box">
+                    <span class="filter-box-label">Размер рамы: <span class="selected-value">Все</span> <i class="fas fa-chevron-down"></i></span>
+                    <div class="filter-options">
+                        <div class="option">Все</div>
+                        <div class="option">16"</div>
+                        <div class="option">17"</div>
+                        <div class="option">18"</div>
+                        <div class="option">19"</div>
+                        <div class="option">20"</div>
                     </div>
                 </div>
-
-                <div class="catalog-grid">
-                    <!-- Карточки товаров будут добавлены через JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <div class="container">
-                <h2>О нас</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Мы - команда профессионалов, увлеченных велосипедами. Наша миссия - сделать качественные велосипеды доступными для каждого.</p>
-                    </div>
-                    <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="О нас">
+                
+                <div class="filter-box">
+                    <span class="filter-box-label">Тип тормозов: <span class="selected-value">Все</span> <i class="fas fa-chevron-down"></i></span>
+                    <div class="filter-options">
+                        <div class="option">Все</div>
+                        <div class="option">Дисковые механические</div>
+                        <div class="option">Дисковые гидравлические</div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="contacts" class="contacts">
-            <div class="container">
-                <h2>Контакты</h2>
-                <div class="contacts-content">
-                    <div class="contact-info">
-                        <h3>Наши контакты</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> ул. Велосипедная, 1</p>
-                        <p><i class="fas fa-phone"></i> +7 (900) 123-45-67</p>
-                        <p><i class="fas fa-envelope"></i> info@streetbikes.ru</p>
+                
+                <div class="filter-box">
+                    <span class="filter-box-label">Размер колес: <span class="selected-value">Все</span> <i class="fas fa-chevron-down"></i></span>
+                    <div class="filter-options">
+                        <div class="option">Все</div>
+                        <div class="option">26"</div>
+                        <div class="option">27.5"</div>
+                        <div class="option">29"</div>
                     </div>
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <input type="text" placeholder="Ваше имя" required>
-                            <input type="email" placeholder="Email" required>
-                            <textarea placeholder="Сообщение" required></textarea>
-                            <button type="submit" class="submit-button">Отправить</button>
-                        </form>
+                </div>
+                
+                <div class="filter-box">
+                    <span class="filter-box-label">Количество скоростей: <span class="selected-value">Все</span> <i class="fas fa-chevron-down"></i></span>
+                    <div class="filter-options">
+                        <div class="option">Все</div>
+                        <div class="option">21</div>
+                        <div class="option">24</div>
+                        <div class="option">27</div>
                     </div>
+                </div>
+                
+                <div class="filter-btn">
+                    <button class="cassette-btn">Кассета</button>
+                </div>
+                
+                <div class="filter-btn filter-reset">
+                    <button class="reset-btn">Сбросить всё</button>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="products">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800" alt="Велосипед TIMETRY TT255">
+                </div>
+                <div class="product-info">
+                    <h3>Велосипед TIMETRY TT255 / TT257 (17", Черный)</h3>
+                    <p class="price">31 615 руб.</p>
+                    
+                    <div class="product-options">
+                        <div class="size-options">
+                            <span class="option-label">Размер рамы</span>
+                            <div class="size-buttons">
+                                <button class="size-btn">16"</button>
+                                <button class="size-btn active">17"</button>
+                            </div>
+                        </div>
+                        <div class="color-options">
+                            <span class="option-label">Цвет</span>
+                            <div class="color-buttons">
+                                <button class="color-btn black active"></button>
+                                <button class="color-btn blue"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability">
+                        <span class="not-available">Нет в наличии</span>
+                        <button class="notify-btn">Уведомить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=800" alt="Велосипед TIMETRY TT263">
+                </div>
+                <div class="product-info">
+                    <h3>Велосипед TIMETRY TT263 (Серый)</h3>
+                    <p class="price">46 802 руб.</p>
+                    
+                    <div class="product-options">
+                        <div class="size-options">
+                            <span class="option-label">Размер рамы</span>
+                            <div class="size-buttons">
+                                <button class="size-btn">16"</button>
+                                <button class="size-btn active">17"</button>
+                            </div>
+                        </div>
+                        <div class="color-options">
+                            <span class="option-label">Цвет</span>
+                            <div class="color-buttons">
+                                <button class="color-btn black"></button>
+                                <button class="color-btn blue active"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability">
+                        <span class="not-available">Нет в наличии</span>
+                        <button class="notify-btn">Уведомить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800" alt="Велосипед TIMETRY TT410">
+                </div>
+                <div class="product-info">
+                    <h3>Велосипед TIMETRY TT410 / TT411 (20", Серый)</h3>
+                    <p class="price">22 078 руб.</p>
+                    
+                    <div class="product-options">
+                        <div class="size-options">
+                            <span class="option-label">Размер рамы</span>
+                            <div class="size-buttons">
+                                <button class="size-btn">18"</button>
+                                <button class="size-btn">19"</button>
+                                <button class="size-btn active">20"</button>
+                            </div>
+                        </div>
+                        <div class="color-options">
+                            <span class="option-label">Цвет</span>
+                            <div class="color-buttons">
+                                <button class="color-btn black"></button>
+                                <button class="color-btn blue active"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability in-stock">
+                        <span class="available">В наличии</span>
+                        <div class="product-buttons-container">
+                            <button class="cart-btn-small">В корзину</button>
+                            <button class="specs-btn-small">Характеристики</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800" alt="Велосипед TIMETRY TT419">
+                </div>
+                <div class="product-info">
+                    <h3>Велосипед TIMETRY TT419 / TT420 (17", Черный)</h3>
+                    <p class="price">29 930 руб.</p>
+                    
+                    <div class="product-options">
+                        <div class="size-options">
+                            <span class="option-label">Размер рамы</span>
+                            <div class="size-buttons">
+                                <button class="size-btn">16"</button>
+                                <button class="size-btn active">17"</button>
+                            </div>
+                        </div>
+                        <div class="color-options">
+                            <span class="option-label">Цвет</span>
+                            <div class="color-buttons">
+                                <button class="color-btn black active"></button>
+                                <button class="color-btn blue"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability">
+                        <span class="not-available">Нет в наличии</span>
+                        <button class="notify-btn">Уведомить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=800" alt="Велосипед TIMETRY TT412">
+                </div>
+                <div class="product-info">
+                    <h3>Велосипед TIMETRY TT412 / TT413 (16", Черный)</h3>
+                    <p class="price">56 820 руб.</p>
+                    
+                    <div class="product-options">
+                        <div class="size-options">
+                            <span class="option-label">Размер рамы</span>
+                            <div class="size-buttons">
+                                <button class="size-btn active">16"</button>
+                                <button class="size-btn">17"</button>
+                            </div>
+                        </div>
+                        <div class="color-options">
+                            <span class="option-label">Цвет</span>
+                            <div class="color-buttons">
+                                <button class="color-btn black active"></button>
+                                <button class="color-btn blue"></button>
+                                <button class="color-btn yellow"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability">
+                        <span class="not-available">Нет в наличии</span>
+                        <button class="notify-btn">Уведомить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1505705694340-019e1e335916?w=800" alt="Велосипед TIMETRY TT329">
+                </div>
+                <div class="product-info">
+                    <h3>Велосипед TIMETRY TT329 (Зеленый)</h3>
+                    <p class="price">30 783 руб.</p>
+                    
+                    <div class="product-options">
+                        <div class="size-options">
+                            <span class="option-label">Размер рамы</span>
+                            <div class="size-buttons">
+                                <button class="size-btn">16"</button>
+                                <button class="size-btn active">17"</button>
+                            </div>
+                        </div>
+                        <div class="color-options">
+                            <span class="option-label">Цвет</span>
+                            <div class="color-buttons">
+                                <button class="color-btn black"></button>
+                                <button class="color-btn blue"></button>
+                                <button class="color-btn yellow active"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability">
+                        <span class="not-available">Нет в наличии</span>
+                        <button class="notify-btn">Уведомить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="show-more">Показать ещё</button>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <h3>Street Bikes</h3>
-                    <p>Ваш надежный партнер в мире велосипедов</p>
-                </div>
-                <div class="footer-links">
-                    <h3>Быстрые ссылки</h3>
-                    <ul>
-                        <li><a href="#catalog">Каталог</a></li>
-                        <li><a href="#about">О нас</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
-                    </ul>
-                </div>
+    <footer>
+        <div class="footer-content">
+            <div class="company-info">
+                <h3>НАШИ КОНТАКТЫ</h3>
+                <p>ИП Ефимов</p>
+                <p>Дмитрий Михайлович</p>
+                <p>ИНН 420533553981</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Street Bikes. Все права защищены.</p>
+            <div class="social">
+                <h3>Мы в соц. сетях:</h3>
+                <div class="social-links">
+                    <a href="#" class="vk"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="rutube"><i class="fas fa-play"></i></a>
+                    <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <a href="mailto:Timetry-bikes@yandex.ru" class="email-link"><i class="far fa-envelope"></i> Timetry-bikes@yandex.ru</a>
+            </div>
+            <div class="contact">
+                <a href="tel:+79502720440" class="phone-link"><i class="fas fa-phone-alt"></i> +7 (950) 272-04-40</a>
+                <p class="address"><i class="fas fa-map-marker-alt"></i> 650070, Кемеровская область, г. Кемерово, пер. Щегловский, д.10</p>
             </div>
         </div>
     </footer>
 
-    <div class="floating-chat">
-        <button class="chat-toggle">
-            <i class="fas fa-comments"></i>
-        </button>
-        <div class="chat-buttons">
-            <a href="#" class="chat-button vk">
-                <i class="fab fa-vk"></i>
+    <!-- Чат и мессенджеры -->
+    <div class="chat-icons">
+        <div class="messenger-buttons">
+            <a href="tel:+79502720440" class="messenger-btn phone-btn">
+                <i class="fas fa-phone"></i>
             </a>
-            <a href="#" class="chat-button telegram">
-                <i class="fab fa-telegram"></i>
+            <a href="https://wa.me/79502720440" class="messenger-btn whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="#" class="chat-button instagram">
-                <i class="fab fa-instagram"></i>
+            <a href="https://t.me/timetry" class="messenger-btn telegram-btn">
+                <i class="fab fa-telegram-plane"></i>
             </a>
         </div>
+        <div class="chat-icon" id="chatIcon">
+            <i class="fas fa-comments"></i>
+        </div>
     </div>
+    
+    <!-- Модальное окно корзины -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Заказ</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="https://images.unsplash.com/photo-1505705694340-019e1e335916?w=800" alt="Велосипед TIMETRY TT329">
+                    <div class="cart-item-details">
+                        <h3>Велосипед TIMETRY TT329 (Зеленый)</h3>
+                        <p class="item-color">Цвет: Зеленый</p>
+                        <div class="item-quantity">
+                            <button class="quantity-btn minus">−</button>
+                            <input type="text" value="1" readonly>
+                            <button class="quantity-btn plus">+</button>
+                            <button class="delete-item">Удалить</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-price">30 783 руб.</div>
+                </div>
+            </div>
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Сумма:</span>
+                    <span class="total-amount">30 783 руб.</span>
+                </div>
+                <div class="total-row">
+                    <span>Итого:</span>
+                    <span class="total-amount">30 783 руб.</span>
+                </div>
+            </div>
+            <div class="cart-form">
+                <h3>Данные для заказа</h3>
+                <form>
+                    <input type="text" placeholder="ФИО*" required>
+                    <input type="tel" placeholder="Телефон*" required>
+                    <input type="text" placeholder="Город*" required>
+                    <button type="submit" class="order-btn">Оформить заказ</button>
+                </form>
+                <p class="privacy-policy">
+                    Нажимая на кнопку, вы принимаете <a href="#">Положение</a> и <a href="#">Согласие</a> на обработку персональных данных.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Обработка фильтров
+        document.querySelectorAll('.filter-box').forEach(filterBox => {
+            const selectedValue = filterBox.querySelector('.selected-value');
+            const options = filterBox.querySelector('.filter-options');
 
-    <script src="script.js"></script>
+            filterBox.addEventListener('click', (e) => {
+                const option = e.target.closest('.option');
+                if (option) {
+                    selectedValue.textContent = option.textContent;
+                }
+            });
+        });
+
+        // Кнопка-галочка Кассета
+        document.querySelector('.cassette-btn').addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+
+        // Кнопка сброса фильтров
+        document.querySelector('.reset-btn').addEventListener('click', () => {
+            document.querySelectorAll('.selected-value').forEach(selected => {
+                selected.textContent = 'Все';
+            });
+            document.querySelector('.cassette-btn').classList.remove('active');
+        });
+
+        // Анимация карточек товаров
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => {
+            const buttons = card.querySelector('.product-buttons');
+            const img = card.querySelector('img');
+
+            card.addEventListener('mouseenter', () => {
+                buttons.style.opacity = '1';
+                buttons.style.transform = 'translateY(0)';
+                img.style.transform = 'scale(1.05)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                buttons.style.opacity = '0';
+                buttons.style.transform = 'translateY(100%)';
+                img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Открытие/закрытие модального окна корзины
+        const cartModal = document.getElementById('cartModal');
+        const cartButton = document.getElementById('cartButton');
+        const closeModal = document.querySelector('.close-modal');
+
+        cartButton.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModal.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Закрытие при клике вне модального окна
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Обработка количества товаров
+        const quantityBtns = document.querySelectorAll('.quantity-btn');
+        quantityBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = btn.parentElement.querySelector('input');
+                let value = parseInt(input.value);
+                
+                if (btn.classList.contains('plus')) {
+                    value++;
+                } else if (btn.classList.contains('minus') && value > 1) {
+                    value--;
+                }
+                
+                input.value = value;
+            });
+        });
+
+        // Обработка выбора размера
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.closest('.size-buttons');
+                parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Обработка выбора цвета
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.closest('.color-buttons');
+                parent.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Функционал кнопки чата
+        document.getElementById('chatIcon').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.messenger-buttons').classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-comments');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-comments');
+            }
+        });
+    </script>
 </body>
 </html> 
