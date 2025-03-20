@@ -26,6 +26,7 @@ header {
 .top-logo img {
     max-width: 350px;
     height: auto;
+    animation: float 6s ease-in-out infinite;
 }
 
 /* Навбар */
@@ -36,6 +37,13 @@ header {
     max-width: 1200px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
     border: 1px solid #ddd;
+    transform: perspective(1000px) rotateX(0deg);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.main-nav:hover {
+    transform: perspective(1000px) rotateX(2deg);
 }
 
 .nav-container {
@@ -67,6 +75,9 @@ header {
     padding: 8px 0;
     display: block;
     position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 500px;
 }
 
 .dropdown-arrow {
@@ -84,11 +95,19 @@ header {
     right: 0;
     height: 2px;
     background: transparent;
-    transition: all 0.3s;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: scaleX(0);
+    transform-origin: center;
 }
 
 .nav-links a:hover:after {
-    background: #0066ff;
+    transform: scaleX(1);
+}
+
+.nav-links a:hover {
+    transform: translateY(-4px) translateZ(20px);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #0066ff;
 }
 
 .dropdown {
@@ -106,10 +125,17 @@ header {
     padding: 10px 0;
     z-index: 1001;
     border-radius: 10px;
+    transform: translateY(20px) rotateX(-10deg);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    transform-origin: top center;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
 }
 
 .dropdown-content a {
@@ -148,10 +174,14 @@ header {
     background: url('f (1).png') no-repeat;
     background-position: calc(100% - 15px) center;
     background-size: 20px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
 }
 
 .search-input:focus {
     border-color: #0066ff;
+    box-shadow: 0 0 25px rgba(0, 102, 255, 0.3);
+    transform: scale(1.02);
 }
 
 /* Filters */
@@ -174,16 +204,21 @@ header {
     border-radius: 20px;
     padding: 8px 15px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid transparent;
     white-space: nowrap;
     height: 35px;
     display: flex;
     align-items: center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 .filter-box:hover {
     background: #e5e5e5;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .filter-box-label {
@@ -215,22 +250,31 @@ header {
     z-index: 10;
     margin-top: 5px;
     padding: 5px 0;
+    transform: translateY(10px) scale(0.95);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    transform-origin: top center;
 }
 
 .filter-box:hover .filter-options {
     display: block;
+    transform: translateY(0) scale(1);
+    opacity: 1;
 }
 
 .option {
     padding: 8px 15px;
     font-size: 14px;
     color: #333;
-    transition: background-color 0.2s;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     text-align: left;
 }
 
 .option:hover {
     background-color: #f5f5f5;
+    transform: translateX(8px);
+    background: linear-gradient(to right, #f5f5f5, #ffffff);
 }
 
 .filter-btn {
@@ -249,11 +293,30 @@ header {
     transition: all 0.3s;
     height: 35px;
     white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .reset-btn:hover {
     background: #0066ff;
     color: #fff;
+}
+
+.reset-btn:after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 102, 255, 0.2);
+    transition: left 0.5s ease-in-out;
+    z-index: -1;
+}
+
+.reset-btn:hover:after {
+    left: 0;
 }
 
 .cassette-btn {
@@ -307,17 +370,41 @@ header {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     border-radius: 5px;
     overflow: hidden;
-    transition: all 0.3s;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform, box-shadow;
+    animation: fadeIn 0.5s ease-out;
 }
 
 .product-card:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
 .product-image {
     position: relative;
     overflow: hidden;
     height: 300px;
+    transform-style: preserve-3d;
+}
+
+.product-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.product-card:hover .product-image::before {
+    opacity: 1;
 }
 
 .product-image img {
@@ -325,7 +412,12 @@ header {
     height: 100%;
     object-fit: contain;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.12) translateZ(0);
 }
 
 .product-info {
@@ -509,17 +601,14 @@ header {
     padding: 20px;
     background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.3s ease;
+    transform: translateY(100%) translateZ(0);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, opacity;
 }
 
 .product-card:hover .product-buttons {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.product-card:hover .product-image img {
-    transform: scale(1.05);
+    transform: translateY(0) translateZ(0);
+    animation: fadeIn 0.3s 0.2s forwards;
 }
 
 .cart-btn, .specs-btn {
@@ -530,9 +619,12 @@ header {
     color: #fff;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-size: 14px;
     text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .cart-btn {
@@ -541,7 +633,8 @@ header {
 
 .cart-btn:hover {
     background: #6ac96a;
-    transform: translateY(-2px);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .specs-btn {
@@ -550,7 +643,43 @@ header {
 
 .specs-btn:hover {
     background: #00b8e6;
-    transform: translateY(-2px);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.cart-btn::before, .specs-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease-in-out;
+    z-index: -1;
+}
+
+.cart-btn:hover::before, .specs-btn:hover::before {
+    left: 100%;
+}
+
+.cart-btn:focus:not(:active)::after, .specs-btn:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
 }
 
 /* Show more button */
@@ -565,20 +694,51 @@ header {
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
     max-width: 300px;
+    position: relative;
+    overflow: hidden;
+    background-size: 200% 200%;
+    background-image: linear-gradient(45deg, #f8f8f8, #e6e6e6, #f0f0f0, #e6e6e6);
+    animation: gradientBG 5s ease infinite;
 }
 
 .show-more:hover {
     background: linear-gradient(to bottom, #e6e6e6, #d9d9d9);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: pulse 1s infinite;
 }
 
 .show-more:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.show-more::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+    background: rgba(255, 255, 255, 0.13);
+    background: linear-gradient(
+        to right, 
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(255, 255, 255, 0.13) 77%,
+        rgba(255, 255, 255, 0.5) 92%,
+        rgba(255, 255, 255, 0.0) 100%
+    );
+}
+
+.show-more:hover::before {
+    opacity: 1;
+    left: 150%;
+    transition: left 0.7s ease-in-out;
 }
 
 /* Footer */
@@ -628,11 +788,14 @@ footer {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 300px;
 }
 
 .social-links a:hover {
-    transform: scale(1.1);
+    transform: translateY(-8px) rotateY(10deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .vk { background: #4C75A3; }
@@ -742,6 +905,8 @@ footer {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     position: relative;
+    animation: pulse 2s infinite;
+    transform-style: preserve-3d;
 }
 
 .chat-icon i {
@@ -763,7 +928,7 @@ footer {
 }
 
 .chat-icon:hover {
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(5deg);
 }
 
 .messenger-buttons {
@@ -789,11 +954,31 @@ footer {
     align-items: center;
     color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: fadeIn 0.3s ease-out;
+    transform: scale(0) rotate(-90deg);
+    opacity: 0;
 }
 
 .messenger-btn:hover {
     transform: scale(1.1);
+}
+
+.messenger-buttons.active .messenger-btn {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+}
+
+.messenger-buttons.active .messenger-btn:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.messenger-buttons.active .messenger-btn:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.messenger-buttons.active .messenger-btn:nth-child(3) {
+    transition-delay: 0.3s;
 }
 
 .phone-btn {
@@ -1004,5 +1189,399 @@ footer {
     
     .filter-item select {
         width: 100%;
+    }
+}
+
+/* Улучшенные анимации для современного вида */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(0, 102, 255, 0); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(0, 102, 255, 0); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    60% { transform: translateY(-4px); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -100% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Анимация для Top-Logo при загрузке страницы */
+.top-logo img {
+    max-width: 350px;
+    height: auto;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Более современная 3D трансформация для навбара */
+.main-nav {
+    transform: perspective(1000px) rotateX(0deg);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.main-nav:hover {
+    transform: perspective(1000px) rotateX(2deg);
+}
+
+/* 3D эффект для навигационных ссылок */
+.nav-links a {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
+.nav-links a:hover {
+    transform: translateY(-4px) translateZ(20px);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #0066ff;
+}
+
+.nav-links a:after {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-links a:hover:after {
+    transform: scaleX(1);
+}
+
+/* Эффектное выпадающее меню с анимацией */
+.dropdown-content {
+    transform: translateY(20px) rotateX(-10deg);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-origin: top center;
+}
+
+.dropdown:hover .dropdown-content {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+}
+
+/* Аккуратный эффект для поиска */
+.search-input {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+}
+
+.search-input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 102, 255, 0.3);
+}
+
+/* Фильтры с 3D эффектом */
+.filter-box {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+.filter-box:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.filter-options {
+    transform: translateY(10px) scale(0.95);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-origin: top center;
+}
+
+.filter-box:hover .filter-options {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.option {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.option:hover {
+    transform: translateX(8px);
+    background: linear-gradient(to right, #f5f5f5, #ffffff);
+}
+
+/* Сброс фильтров с анимацией */
+.reset-btn {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.reset-btn:after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 102, 255, 0.2);
+    transition: left 0.5s ease-in-out;
+    z-index: -1;
+}
+
+.reset-btn:hover:after {
+    left: 0;
+}
+
+/* Карточки товаров с современными эффектами */
+.product-card {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform, box-shadow;
+}
+
+.product-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.product-image {
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.product-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.product-card:hover .product-image::before {
+    opacity: 1;
+}
+
+.product-image img {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.12) translateZ(0);
+}
+
+.product-buttons {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateY(100%) translateZ(0);
+    will-change: transform, opacity;
+}
+
+.product-card:hover .product-buttons {
+    transform: translateY(0) translateZ(0);
+    animation: fadeIn 0.3s 0.2s forwards;
+}
+
+.cart-btn, .specs-btn {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.cart-btn::before, .specs-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease-in-out;
+    z-index: -1;
+}
+
+.cart-btn:hover::before, .specs-btn:hover::before {
+    left: 100%;
+}
+
+.cart-btn:hover, .specs-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Привлекательная кнопка Показать еще */
+.show-more {
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-size: 200% 200%;
+    background-image: linear-gradient(45deg, #f8f8f8, #e6e6e6, #f0f0f0, #e6e6e6);
+    animation: gradientBG 5s ease infinite;
+}
+
+.show-more:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.show-more::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+    background: rgba(255, 255, 255, 0.13);
+    background: linear-gradient(
+        to right, 
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(255, 255, 255, 0.13) 77%,
+        rgba(255, 255, 255, 0.5) 92%,
+        rgba(255, 255, 255, 0.0) 100%
+    );
+}
+
+.show-more:hover::before {
+    opacity: 1;
+    left: 150%;
+    transition: left 0.7s ease-in-out;
+}
+
+/* Анимированный футер */
+.footer-content > div {
+    animation: fadeIn 0.5s forwards;
+    opacity: 0;
+}
+
+.footer-content > div:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.footer-content > div:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.footer-content > div:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+/* Социальные иконки с 3D эффектом */
+.social-links a {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 300px;
+}
+
+.social-links a:hover {
+    transform: translateY(-8px) rotateY(10deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Анимированный чат */
+.chat-icon {
+    animation: pulse 2s infinite;
+    transform-style: preserve-3d;
+}
+
+.chat-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.messenger-btn {
+    transform: scale(0) rotate(-90deg);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.messenger-buttons.active .messenger-btn {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+}
+
+.messenger-buttons.active .messenger-btn:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.messenger-buttons.active .messenger-btn:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.messenger-buttons.active .messenger-btn:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Эффект "загрузки контента" - показывает элементы на странице по мере прокрутки */
+@media (min-width: 768px) {
+    .product-card {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    .product-card.fade-in {
+        animation: slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .product-card:nth-child(3n+1).fade-in {
+        animation: slideInLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .product-card:nth-child(3n+3).fade-in {
+        animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .filter-box {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    
+    .filter-box.fade-in {
+        animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .filter-box:nth-child(odd).fade-in {
+        animation-delay: 0.1s;
+    }
+    
+    .filter-box:nth-child(even).fade-in {
+        animation-delay: 0.2s;
     }
 }

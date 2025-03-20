@@ -417,123 +417,206 @@
         </div>
     </div>
     
+    <!-- Скрипт для анимаций при скролле и интерактивности -->
     <script>
-        // Обработка фильтров
-        document.querySelectorAll('.filter-box').forEach(filterBox => {
-            const selectedValue = filterBox.querySelector('.selected-value');
-            const options = filterBox.querySelector('.filter-options');
-
-            filterBox.addEventListener('click', (e) => {
-                const option = e.target.closest('.option');
-                if (option) {
-                    selectedValue.textContent = option.textContent;
-                }
-            });
-        });
-
-        // Кнопка-галочка Кассета
-        document.querySelector('.cassette-btn').addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-
-        // Кнопка сброса фильтров
-        document.querySelector('.reset-btn').addEventListener('click', () => {
-            document.querySelectorAll('.selected-value').forEach(selected => {
-                selected.textContent = 'Все';
-            });
-            document.querySelector('.cassette-btn').classList.remove('active');
-        });
-
-        // Анимация карточек товаров
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach(card => {
-            const buttons = card.querySelector('.product-buttons');
-            const img = card.querySelector('img');
-
-            card.addEventListener('mouseenter', () => {
-                buttons.style.opacity = '1';
-                buttons.style.transform = 'translateY(0)';
-                img.style.transform = 'scale(1.05)';
-            });
-
-            card.addEventListener('mouseleave', () => {
-                buttons.style.opacity = '0';
-                buttons.style.transform = 'translateY(100%)';
-                img.style.transform = 'scale(1)';
-            });
-        });
-
-        // Открытие/закрытие модального окна корзины
-        const cartModal = document.getElementById('cartModal');
-        const cartButton = document.getElementById('cartButton');
-        const closeModal = document.querySelector('.close-modal');
-
-        cartButton.addEventListener('click', () => {
-            cartModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        });
-
-        closeModal.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        // Закрытие при клике вне модального окна
-        window.addEventListener('click', (e) => {
-            if (e.target === cartModal) {
-                cartModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Функция для анимации элементов при скролле
+            function animateOnScroll() {
+                const productCards = document.querySelectorAll('.product-card:not(.fade-in)');
+                const filterBoxes = document.querySelectorAll('.filter-box:not(.fade-in)');
+                
+                // Порог видимости - элемент появляется, когда 20% его высоты видно на экране
+                const threshold = 0.2;
+                
+                // Анимируем карточки товаров
+                productCards.forEach(card => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    if (cardTop < window.innerHeight * (1 - threshold)) {
+                        setTimeout(() => {
+                            card.classList.add('fade-in');
+                        }, 100 * Math.random()); // Небольшая случайная задержка для эффекта каскада
+                    }
+                });
+                
+                // Анимируем фильтры
+                filterBoxes.forEach((box, index) => {
+                    const boxTop = box.getBoundingClientRect().top;
+                    if (boxTop < window.innerHeight * (1 - threshold)) {
+                        setTimeout(() => {
+                            box.classList.add('fade-in');
+                        }, 50 * index); // Постепенное появление по очереди
+                    }
+                });
             }
-        });
-
-        // Обработка количества товаров
-        const quantityBtns = document.querySelectorAll('.quantity-btn');
-        quantityBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const input = btn.parentElement.querySelector('input');
-                let value = parseInt(input.value);
-                
-                if (btn.classList.contains('plus')) {
-                    value++;
-                } else if (btn.classList.contains('minus') && value > 1) {
-                    value--;
-                }
-                
-                input.value = value;
-            });
-        });
-
-        // Обработка выбора размера
-        document.querySelectorAll('.size-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const parent = btn.closest('.size-buttons');
-                parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        // Обработка выбора цвета
-        document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const parent = btn.closest('.color-buttons');
-                parent.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        // Функционал кнопки чата
-        document.getElementById('chatIcon').addEventListener('click', function() {
-            this.classList.toggle('active');
-            document.querySelector('.messenger-buttons').classList.toggle('active');
             
-            const icon = this.querySelector('i');
-            if (this.classList.contains('active')) {
-                icon.classList.remove('fa-comments');
-                icon.classList.add('fa-chevron-down');
-            } else {
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-comments');
+            // Слушаем событие скролла для анимации
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Запускаем анимацию сразу для видимых элементов
+            animateOnScroll();
+            
+            // Обработка фильтров
+            document.querySelectorAll('.filter-box').forEach(filterBox => {
+                const selectedValue = filterBox.querySelector('.selected-value');
+                const options = filterBox.querySelector('.filter-options');
+
+                filterBox.addEventListener('click', (e) => {
+                    const option = e.target.closest('.option');
+                    if (option) {
+                        selectedValue.textContent = option.textContent;
+                    }
+                });
+            });
+
+            // Кнопка-галочка Кассета
+            const cassetteBtn = document.querySelector('.cassette-btn');
+            if (cassetteBtn) {
+                cassetteBtn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
             }
+
+            // Кнопка сброса фильтров
+            const resetBtn = document.querySelector('.reset-btn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    document.querySelectorAll('.selected-value').forEach(selected => {
+                        selected.textContent = 'Все';
+                    });
+                    if (cassetteBtn) {
+                        cassetteBtn.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Анимация для мессенджеров
+            const chatIcon = document.querySelector('.chat-icon');
+            const messengerButtons = document.querySelector('.messenger-buttons');
+            
+            if (chatIcon) {
+                chatIcon.addEventListener('click', function() {
+                    messengerButtons.classList.toggle('active');
+                    this.classList.toggle('active');
+                    
+                    const icon = this.querySelector('i');
+                    if (this.classList.contains('active')) {
+                        icon.classList.remove('fa-comments');
+                        icon.classList.add('fa-chevron-down');
+                    } else {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-comments');
+                    }
+                });
+            }
+            
+            // Добавляем параллакс эффект для карточек товаров
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // положение курсора по X внутри карточки
+                    const y = e.clientY - rect.top;  // положение курсора по Y внутри карточки
+                    
+                    // Вычисляем смещение от центра (в процентах)
+                    const xPercent = ((x / rect.width) - 0.5) * 2;  // от -1 до 1
+                    const yPercent = ((y / rect.height) - 0.5) * 2; // от -1 до 1
+                    
+                    // Применяем небольшой 3D-эффект наклона
+                    this.style.transform = `perspective(1000px) rotateY(${xPercent * 3}deg) rotateX(${-yPercent * 3}deg) translateY(-10px) scale(1.03)`;
+                    
+                    // Также активируем дополнительные эффекты при наведении
+                    const buttons = this.querySelector('.product-buttons');
+                    const img = this.querySelector('img');
+                    
+                    if (buttons) {
+                        buttons.style.opacity = '1';
+                        buttons.style.transform = 'translateY(0) translateZ(0)';
+                    }
+                    
+                    if (img) {
+                        img.style.transform = 'scale(1.12) translateZ(0)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    // Возвращаем обратно в исходное положение
+                    this.style.transform = '';
+                    
+                    // Возвращаем кнопки и изображение в исходное состояние
+                    const buttons = this.querySelector('.product-buttons');
+                    const img = this.querySelector('img');
+                    
+                    if (buttons) {
+                        buttons.style.opacity = '0';
+                        buttons.style.transform = 'translateY(100%) translateZ(0)';
+                    }
+                    
+                    if (img) {
+                        img.style.transform = '';
+                    }
+                });
+            });
+            
+            // Открытие/закрытие модального окна корзины
+            const cartModal = document.getElementById('cartModal');
+            const cartButton = document.getElementById('cartButton');
+            const closeModal = document.querySelector('.close-modal');
+
+            if (cartButton && cartModal && closeModal) {
+                cartButton.addEventListener('click', () => {
+                    cartModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+
+                closeModal.addEventListener('click', () => {
+                    cartModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+                
+                // Закрытие при клике вне модального окна
+                window.addEventListener('click', (e) => {
+                    if (e.target === cartModal) {
+                        cartModal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+
+            // Обработка количества товаров
+            const quantityBtns = document.querySelectorAll('.quantity-btn');
+            quantityBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.parentElement.querySelector('input');
+                    let value = parseInt(input.value);
+                    
+                    if (btn.classList.contains('plus')) {
+                        value++;
+                    } else if (btn.classList.contains('minus') && value > 1) {
+                        value--;
+                    }
+                    
+                    input.value = value;
+                });
+            });
+
+            // Обработка выбора размера
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const parent = btn.closest('.size-buttons');
+                    parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            // Обработка выбора цвета
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const parent = btn.closest('.color-buttons');
+                    parent.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
         });
     </script>
 </body>
